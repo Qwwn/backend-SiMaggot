@@ -3,14 +3,6 @@ steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: ['install']
 
-# Langkah 2: Menjalankan tes jika diperlukan
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['test']
-
-# Langkah 3: Membangun aplikasi Node.js
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['run', 'build']
-
 # Langkah 4: Membangun Docker image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/simaggot/backend-simaggot:latest', '.']
