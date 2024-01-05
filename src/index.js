@@ -8,9 +8,9 @@ const cors = require('cors')
 const authRoutes = require('./routes/authRoute')
 const authenticate = require('./middleware/authenticate.js')
 
-const port = 8080
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
-  console.log('App listening on port', port)
+  console.log(`App listening on port ${port}`)
 })
 
 app.use(cors())
