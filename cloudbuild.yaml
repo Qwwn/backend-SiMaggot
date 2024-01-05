@@ -1,0 +1,33 @@
+steps:
+# Langkah 1: Menggunakan Node.js
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+
+# Langkah 2: Menjalankan tes jika diperlukan
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['test']
+
+# Langkah 3: Membangun aplikasi Node.js
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'build']
+
+# Langkah 4: Membangun Docker image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/simaggot/backend-simaggot:latest', '.']
+
+# Langkah 5: Push Docker image ke Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/simaggot/backend-simaggot:latest']
+
+# Langkah 6: Deploy ke Google Cloud Run
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: [
+    'run', 'deploy', 'backend-simaggot-service',
+    '--image', 'gcr.io/simaggot/backend-simaggot:latest',
+    '--platform', 'managed',
+    '--region', 'asia-southeast2',
+    '--allow-unauthenticated'  # Ganti dengan opsi keamanan yang sesuai
+  ]
+
+images:
+- 'gcr.io/your-project-id/backend-simaggot:latest'

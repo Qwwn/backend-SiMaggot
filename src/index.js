@@ -8,9 +8,9 @@ const cors = require('cors')
 const authRoutes = require('./routes/authRoute')
 const authenticate = require('./middleware/authenticate.js')
 
-const port = parseInt(process.env.PORT) || 3000
+const port = 3000
 app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
+  console.log('App listening on port', port)
 })
 
 app.use(cors())
