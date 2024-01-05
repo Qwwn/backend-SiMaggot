@@ -5,7 +5,8 @@ const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
-const authRoutes = require('./routes/authRoutes.js')
+const authRoutes = require('./routes/authRoute')
+const authenticate = require('./middleware/authenticate.js')
 
 const port = parseInt(process.env.PORT) || 3000
 app.listen(port, () => {
