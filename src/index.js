@@ -8,7 +8,7 @@ const cors = require('cors')
 const authRoutes = require('./routes/authRoute')
 const authenticate = require('./middleware/authenticate.js')
 
-const port = 3000
+const port = 8080
 app.listen(port, () => {
   console.log('App listening on port', port)
 })
