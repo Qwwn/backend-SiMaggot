@@ -1,9 +1,8 @@
 // Import the functions you need from the SDKs you need
-const { initializeApp } = require('firebase/app');
+const { initializeApp } = require('firebase/app')
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const dotenv = require('dotenv')
 dotenv.config({ path: '.env' })
 
@@ -14,9 +13,8 @@ const firebaseConfig = {
   storageBucket: process.env.STORAGE_BUCKET,
   messagingSenderId: process.env.MESSAGING_SENDER_ID,
   appId: process.env.APP_ID
-};
+}
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig)
 
 module.exports = app

@@ -1,31 +1,32 @@
-const admin = require('../config/firebaseAdminConfig')
+/* eslint-disable camelcase */
+/* eslint-disable no-underscore-dangle */
+const admin = require('../configurations/fireBaseAdminConfig')
 const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } = require('firebase/auth')
-const app = require('../config/firebaseConfig')
+const app = require('../configurations/firebaseConfig')
 const AuthenticationServices = require('../services/authenticationServices')
 const axios = require('axios')
 const bcrypt = require('bcrypt')
 const params = new URLSearchParams()
-const AuthorizationError = require('../exceptions/AuthorizationError')
 const auth = getAuth(app)
 
 exports.signup = async (req, res) => {
-    const user = {
-      email: req.body.email,
-      password: req.body.password
-    }
-    try {
-      const hashedPassword = await bcrypt.hash(user.password, 10)
-      const signUpResponse = await createUserWithEmailAndPassword(auth, user.email, user.password)
-      const responses = {
-        userId: signUpResponse.user.uid,
-        email: signUpResponse.user.email,
-        password: hashedPassword
-      }
-      res.status(200).json({ status: 'Success', message: 'Successful SignUp', data: responses })
-    } catch (error) {
-      res.status(500).json({ status: 'Failed', message: 'Failed To SignUp', error: error.code })
-    }
+  const user = {
+    email: req.body.email,
+    password: req.body.password
   }
+  try {
+    const hashedPassword = await bcrypt.hash(user.password, 10)
+    const signUpResponse = await createUserWithEmailAndPassword(auth, user.email, user.password)
+    const responses = {
+      userId: signUpResponse.user.uid,
+      email: signUpResponse.user.email,
+      password: hashedPassword
+    }
+    res.status(200).json({ status: 'Success', message: 'Successful SignUp', data: responses })
+  } catch (error) {
+    res.status(500).json({ status: 'Failed', message: 'Failed To SignUp', error: error.code })
+  }
+}
 
 exports.login = async (req, res) => {
   const user = {
@@ -50,7 +51,7 @@ exports.logout = async (req, res) => {
     res.status(200).json({ status: 'Success', message: 'Success Logout' })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ status: 'Failed', error: error.code ,message: 'Failed To Logout' })
+    res.status(500).json({ status: 'Failed', error: error.code, message: 'Failed To Logout' })
   }
 }
 

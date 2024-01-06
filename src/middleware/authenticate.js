@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 const admin = require('firebase-admin')
 
 const authenticate = async (req, res, next) => {

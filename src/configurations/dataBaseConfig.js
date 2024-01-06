@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 const Firestore = require('@google-cloud/firestore')
 const dotenv = require('dotenv')
 dotenv.config({ path: '.env' })
