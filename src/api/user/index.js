@@ -17,7 +17,7 @@ router.post('/', upload.single('cover'), async (req, res) => {
 
     const userId = await handler.postUserHandler(req.body, image)
     res.status(201).json({ 
-      status: 'success', 
+      status: 'Success', 
       message: 'User Created', 
       data: {
         user: {
@@ -42,7 +42,7 @@ router.get('/', async (req, res) => {
     const data = await handler.getUserByUserIdHandler(userId)
     res.status(200).json(
       { 
-        status: 'success',
+        status: 'Success',
         message: 'Success get user',
         data
       }
@@ -70,7 +70,7 @@ router.put('/', upload.single('cover'), async (req, res) => {
 
     res.status(200)
     res.json({
-      status: 'success',
+      status: 'Success',
       message: 'User Successfully Updated'
     })
   } catch (error) {

@@ -1,6 +1,6 @@
 const db = require('../configurations/dataBaseConfig')
 const gc = require('../configurations/storageConfig')
-const bucket = gc.bucket('si-maggot-seller')
+const bucket = gc.bucket('si-maggot-user')
 const NotFoundError = require('../exceptions/NotFoundError')
 
 class UserServices {
@@ -30,7 +30,6 @@ class UserServices {
     try {
       const doc = db.collection('users').doc(data.email)
       await doc.set(data)
-      console.log('user berhasil dibuat')
     } catch (error) {
       throw error
     }
