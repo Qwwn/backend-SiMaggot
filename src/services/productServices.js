@@ -33,17 +33,16 @@ class ProductServices {
     }
   }
 
-  async getProductById(idProduct) {
+  async getProductById(id) {
     try {
-      const querySnapshot = await db.collectionGroup('product').where('id', '==', idProduct).get()
+      const querySnapshot = await db.collectionGroup('product').where('id', '==', id).get()
   
-      let productDatas = null  
+      let productDatas = null
       querySnapshot.forEach((doc) => {
         const productData = doc.data()
         const { caseSearch, ...restProductData } = productData
         productDatas = restProductData
       })
-
       if (!productDatas) {
         throw new NotFoundError('Product not found')
       }
