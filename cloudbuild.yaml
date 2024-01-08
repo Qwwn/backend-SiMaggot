@@ -3,23 +3,28 @@ steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: ['install']
 
-# Langkah 4: Membangun Docker image
+# Langkah 4: Membangun Docker image menggunakan buildx
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/simaggot/backend-simaggot:latest', '.']
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      docker buildx create --use
+      IMAGE_DIGEST=$(docker buildx build --platform linux/amd64 -t 'gcr.io/simaggot/backend-simaggot:latest' . | grep 'latest: digest' | awk '{ print $3 }')
 
 # Langkah 5: Push Docker image ke Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/simaggot/backend-simaggot:latest']
+  args: ['push', "gcr.io/simaggot/backend-simaggot@$IMAGE_DIGEST"]
 
 # Langkah 6: Deploy ke Google Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
   args: [
     'run', 'deploy', 'backend-simaggot-service',
-    '--image', 'gcr.io/simaggot/backend-simaggot:latest',
+    '--image', "gcr.io/simaggot/backend-simaggot@$IMAGE_DIGEST",
     '--platform', 'managed',
     '--region', 'asia-southeast2',
     '--allow-unauthenticated' 
   ]
 
 images:
-- 'gcr.io/your-project-id/backend-simaggot:latest'
+- 'gcr.io/your-project-id/backend-simaggot@$IMAGE_DIGEST'
