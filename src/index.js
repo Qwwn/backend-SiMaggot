@@ -15,10 +15,9 @@ const transaction = require('./api/transaction')
 const cart = require('./api/cart')
 
 const PORT = process.env.PORT || 8080
-const HOST = '0.0.0.0'
 // eslint-disable-next-line prefer-const
 let server = app.listen(PORT, () => {
-  console.log(`Running on http://${HOST}:${PORT}`)
+  console.log(`Running on port ${PORT}`)
 })
 
 app.use(cors())
