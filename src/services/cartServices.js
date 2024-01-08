@@ -2,9 +2,6 @@
 /* eslint-disable array-callback-return */
 const db = require('../configurations/dataBaseConfig')
 const NotFoundError = require('../exceptions/NotFoundError')
-// const ClientError = require('../exceptions/ClientError')
-// const gc = require('../storage')
-// const bucket = gc.bucket('flowers-capstone') // should be your bucket name
 
 class CartServices {
   constructor() {
@@ -13,7 +10,6 @@ class CartServices {
 
   async getCart(userId) {
     try {
-      // Implementation to retrieve carts
       const querySnapshot = await db.collection('carts').where('userId', '==', userId).get()
 
       let cartsData = null
@@ -69,7 +65,7 @@ class CartServices {
       throw error
     }
   }
- 
+  
   async updateProductInCart(userId, payload, productId) {
     try {
       const querySnapshot = await db.collection('carts').where('userId', '==', userId).get()
