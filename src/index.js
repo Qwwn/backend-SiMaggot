@@ -14,7 +14,7 @@ const seller = require('./api/seller')
 const transaction = require('./api/transaction')
 const cart = require('./api/cart')
 
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 8080
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
 })
