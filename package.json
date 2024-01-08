@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.js",
+    "start": "node src/index.js",
     "lint": "eslint ./**/*.js"
   },
   "keywords": [],
@@ -14,15 +14,13 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "eslint": "^8.53.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-n": "^16.3.1",
     "eslint-plugin-promise": "^6.1.1",
-    "express": "^4.18.2"
-  },
-  "dependencies": {
+    "express": "^4.18.2",
     "@google-cloud/firestore": "^7.1.0",
     "@google-cloud/storage": "^7.6.0",
     "axios": "^1.6.2",
