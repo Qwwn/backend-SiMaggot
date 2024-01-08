@@ -10,7 +10,7 @@ steps:
     - '-c'
     - |
       docker buildx create --use
-      IMAGE_DIGEST=$(docker buildx build --platform linux/amd64 -t 'gcr.io/simaggot/backend-simaggot:latest' . | grep 'latest: digest' | awk '{ print $3 }')
+      export IMAGE_DIGEST=$(docker buildx build --platform linux/amd64 -o json | jq -r '.[].Digest')
 
 # Langkah 5: Push Docker image ke Container Registry
 - name: 'gcr.io/cloud-builders/docker'
