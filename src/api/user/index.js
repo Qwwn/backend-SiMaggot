@@ -80,4 +80,23 @@ router.put('/', upload.single('cover'), async (req, res) => {
     })
   }
 })
+
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const data = await handler.getUserByUserIdHandler(id)
+    res.status(200).json(
+      {
+        status: 'success',
+        message: 'Success get user',
+        data
+      }
+    )
+  } catch (error) {
+    res.status(error.statusCode || 500).json({
+      status: 'Fail',
+      message: error.message
+    })
+  }
+})
 module.exports = router
