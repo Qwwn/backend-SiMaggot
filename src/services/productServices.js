@@ -162,7 +162,7 @@ class ProductServices {
         const file = await this.uploadProductImage(filename, data.cover.buffer)
 
         if (file) {
-          const imageUrl = `${process.env.GS_URL}/${file}`
+          const imageUrl = `${process.env.GS_URL_PRODUCT}/${file}`
           newData.cover = imageUrl
         } else {
           return null
@@ -191,7 +191,7 @@ class ProductServices {
         const { cover: { originalname, buffer } } = data
         const filename = `${productId}_${originalname}`
         const file = await this.uploadProductImage(filename, buffer)
-        const imageUrl = `${process.env.GS_URL}/${file}`
+        const imageUrl = `${process.env.GS_URL_PRODUCT}/${file}`
         data.cover = imageUrl
       }
       const doc = db.collection('products').doc(sellerId).collection('product').doc(productName)
