@@ -20,7 +20,14 @@ let server = app.listen(PORT, () => {
   console.log(`Running on port ${PORT}`)
 })
 
-app.use(cors())
+const corsOptions = {
+  origin: '*', 
+  credentials: true,
+  optionsSuccessStatus: 200,
+  allowedHeaders: ['Content-Type', 'Authorization']
+}
+
+app.use(cors(corsOptions))
 app.use(bodyParser.json())
 
 app.use('/auth', authRoutes)
@@ -30,7 +37,3 @@ app.use('/search', search)
 app.use('/product', products)
 app.use('/cart', cart)
 app.use('/transaction', transaction)
-
-app.get('/protected', authenticate, (req, res) => {
-  res.json({ message: 'This is a protected route', user: req.user })
-})
