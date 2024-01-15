@@ -44,10 +44,21 @@ exports.login = async (req, res) => {
 }
 exports.logout = async (req, res) => {
   const token = req.headers.authorization
-  const decodedToken = await AuthenticationServices(token)
-  const { uid: userId } = decodedToken
+
   try {
+    // Authenticate the token and get the user ID
+    const decodedToken = await AuthenticationServices(token)
+
+    // Check if decodedToken is null or undefined
+    if (!decodedToken) {
+      return res.status(401).json({ status: 'Failed', message: 'Invalid Token' })
+    }
+
+    const { uid: userId } = decodedToken
+
+    // Revoke refresh tokens
     await admin.auth().revokeRefreshTokens(userId)
+
     res.status(200).json({ status: 'Success', message: 'Success Logout' })
   } catch (error) {
     console.error(error)
