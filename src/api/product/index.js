@@ -30,7 +30,7 @@ router.get('/:id', async (req, res) => {
     res.status(200).json(
       {
         status: 'success',
-        message: 'Success get flower',
+        message: 'Success get product',
         data
       }
     )

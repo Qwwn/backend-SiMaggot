@@ -189,10 +189,7 @@ router.put('/products/:id', upload.single('cover'), async (req, res) => {
     
     if (req.file !== undefined) {
       req.body.cover = req.file
-    }
-    if (!Array.isArray(req.body.varian) && req.body.varian !== undefined) req.body.varian = [req.body.varian]
-    if (!Array.isArray(req.body.category) && req.body.category !== undefined) req.body.category = [req.body.category]
-    
+    }    
     await handler.updateSellerProductHandler(req.body, ownerId, productId)
 
     res.status(200)

@@ -22,9 +22,9 @@ exports.signup = async (req, res) => {
       email: signUpResponse.user.email,
       password: hashedPassword
     }
-    res.status(200).json({ status: 'Success', message: 'Successful SignUp', data: responses })
+    res.status(200).json({ status: 'Success', message: 'Berhasil Daftar', data: responses })
   } catch (error) {
-    res.status(500).json({ status: 'Failed', message: 'Failed To SignUp', error: error.code })
+    res.status(500).json({ status: 'Failed', message: 'Gagal Daftar', error: error.code })
   }
 }
 
@@ -37,9 +37,9 @@ exports.login = async (req, res) => {
     const signInResponse = await signInWithEmailAndPassword(auth, user.email, user.password)
     const credential = await signInResponse.user.getIdToken(true)
     const refreshToken = signInResponse.user.refreshToken
-    res.status(200).json({ status: 'Success', message: 'Successful SignIn', credential, refreshToken })
+    res.status(200).json({ status: 'Success', message: 'Berhasil Masuk', credential, refreshToken })
   } catch (error) {
-    res.status(500).json({ status: 'Failed', error: error.code, message: 'Failed SignIn' })
+    res.status(500).json({ status: 'Failed', error: error.code, message: 'Gagal Masuk' })
   }
 }
 exports.logout = async (req, res) => {
@@ -51,7 +51,7 @@ exports.logout = async (req, res) => {
 
     // Check if decodedToken is null or undefined
     if (!decodedToken) {
-      return res.status(401).json({ status: 'Failed', message: 'Invalid Token' })
+      return res.status(401).json({ status: 'Failed', message: 'Token tidak valid' })
     }
 
     const { uid: userId } = decodedToken
@@ -59,10 +59,10 @@ exports.logout = async (req, res) => {
     // Revoke refresh tokens
     await admin.auth().revokeRefreshTokens(userId)
 
-    res.status(200).json({ status: 'Success', message: 'Success Logout' })
+    res.status(200).json({ status: 'Success', message: 'Berhasil Keluar' })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ status: 'Failed', error: error.code, message: 'Failed To Logout' })
+    res.status(500).json({ status: 'Failed', error: error.code, message: 'Gagal Keluar' })
   }
 }
 
@@ -70,7 +70,7 @@ exports.resetPassword = async (req, res) => {
   const email = req.body.email
   try {
     const response = await sendPasswordResetEmail(auth, email)
-    res.status(200).json({ status: 'Success', message: 'Link has been sent to your email', response })
+    res.status(200).json({ status: 'Success', message: 'Tauatan sudah dikirim ke email anda', response })
   } catch (error) {
     res.status(500).json({ status: 'Failed', error: error.message })
   }
@@ -89,8 +89,8 @@ exports.refreshAccessToken = async (req, res) => {
       }
     })
 
-    res.status(201).json({ status: 'Success', message: 'Refreshing Access Token Success', credential: refreshingToken.data.access_token })
+    res.status(201).json({ status: 'Success', message: 'Refreshing Access Token Berhasil', credential: refreshingToken.data.access_token })
   } catch (error) {
-    res.status(403).json({ status: 'Failed', error: 'refresh token expired / invalid, please login' })
+    res.status(403).json({ status: 'Failed', error: 'refresh token kadaluarsa / tidak valid, masuk ulang' })
   }
 }
